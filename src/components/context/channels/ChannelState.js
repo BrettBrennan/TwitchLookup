@@ -8,7 +8,16 @@ import {
     SET_LOADING,
     GET_CHANNEL,
 } from "../types";
-
+let clientID;
+let clientSecret;
+if (process.env.NODE_ENV !== "production") {
+    clientID = process.env.REACT_APP_CLIENT_ID;
+    clientSecret = process.env.REACT_APP_CLIENT_TOKEN;
+} else {
+    clientID = process.env.CLIENT_ID;
+    clientSecret = process.env.CLIENT_TOKEN;
+}
+console.log(clientID);
 const ChannelState = (props) => {
     const initialState = {
         channels: [],
@@ -22,19 +31,19 @@ const ChannelState = (props) => {
 
     // Search Channels
     const searchChannels = async (text) => {
+        console.log('Searching Channels: ' + text);
         setLoading();
-        const res = await axios.get(
-            `https://api.twitch.tv/helix/search/channels?query=${text}`,
-            {
-                headers: {
-                    'authorization': `Bearer ${process.env.CLIENT_TOKEN}`,
-                    'client-id': process.env.CLIENT_ID
-                }
+        const inst = axios.create({
+            baseURL: 'https://api.twitch.tv/helix/',
+            headers: {
+                'Authorization': `Bearer ${clientSecret}`,
+                'client-id': clientID
             }
-        );
+        })
+        const res = await inst.get(`search/channels?query=${text}`);
         dispatch({
             type: SEARCH_CHANNELS,
-            payload: res.data.items,
+            payload: res.data.data,
         });
     };
     // Get Channel
@@ -44,8 +53,8 @@ const ChannelState = (props) => {
             `https://api.twitch.tv/helix/channels?broadcaster_id=${broadcaster_id}`, 
             {
                 headers: {
-                    'authorization': `Bearer ${process.env.CLIENT_TOKEN}`,
-                    'client-id': process.env.CLIENT_ID
+                    'authorization': `Bearer ${clientSecret}`,
+                    'client-id': clientID
                 }
             }
         );
