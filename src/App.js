@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./components/pages/Home";
+import NotFound from "./components/pages/NotFound";
 import ChannelState from './components/context/channels/ChannelState';
-
 import './App.css';
 
 /*
@@ -13,7 +14,16 @@ import './App.css';
 function App() {
   return (
     <ChannelState>
-        
+        <Router>
+          <div className='App'>
+            <div className='container'>
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route component={NotFound} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
     </ChannelState>
   );
 }
