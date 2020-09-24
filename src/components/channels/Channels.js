@@ -9,14 +9,15 @@ import Channel from './Channel';
 const Users = () => {
     const channelContext = useContext(ChannelContext);
     const { channels, loading } = channelContext;
-    //console.log(channels);
+    var selected = null;
+
     if (loading) {
         return <h1>Loading...</h1>;
     } else {
         return (
             <div style={channelStyle}>
                 {channels.map((channel) => (
-                    <Channel key={channel.id} channel={channel}/>
+                    <Channel key={channel.id} channel={channel} selected={selected} />
                 ))}
             </div>
         );

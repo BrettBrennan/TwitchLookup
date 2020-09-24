@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Channel = (channel) => {
+const Channel = (channel, selected) => {
     const {
         broadcaster_language, 
         display_name, 
@@ -10,8 +10,9 @@ const Channel = (channel) => {
         thumbnail_url, 
         title
     } = channel.channel;
+    var cardClass = `channel_card ${selected === id && 'selected'}`
     return (
-        <div className="channel_card">
+        <div className={cardClass}>
             <h2>{display_name}</h2>
             <h3>{title}</h3>
             <img src={thumbnail_url} width='150px' height='150px'/>        

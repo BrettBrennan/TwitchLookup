@@ -9,7 +9,7 @@ const Search = () => {
 
     const onChange = (e) => {
         setText(e.target.value);
-        channelContext.searchChannels(text);
+        //channelContext.searchChannels(text);
     }
     const onSubmit = (e) => {
         e.preventDefault();
@@ -26,24 +26,25 @@ const Search = () => {
                 <input
                     type='text'
                     name='text'
-                    placeholder='Search Users...'
+                    placeholder='Search Channels...'
                     value={text}
                     onChange={onChange}
+                    className="search-box"
                 />
                 <input
                     type='submit'
                     value='Search'
-                    className='btn btn-dark btn-block'
+                    className='search-button'
                 />
+                {channelContext.channels.length > 0 && (
+                    <button
+                        className='clear-button'
+                        onClick={channelContext.clearChannels}
+                    >
+                        Clear
+                    </button>
+                )}
             </form>
-            {channelContext.channels.length > 0 && (
-                <button
-                    className='btn btn-light btn-block'
-                    onClick={channelContext.clearChannels}
-                >
-                    Clear
-                </button>
-            )}
         </div>
     );
 };
