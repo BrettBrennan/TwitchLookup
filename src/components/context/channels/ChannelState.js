@@ -40,7 +40,7 @@ const ChannelState = (props) => {
                 'client-id': clientID
             }
         })
-        const res = await inst.get(`search/channels?query=${text}`);
+        const res = await inst.get(`search/channels?query=${text}&first=100`);
         dispatch({
             type: SEARCH_CHANNELS,
             payload: res.data.data,

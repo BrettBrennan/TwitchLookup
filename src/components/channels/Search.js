@@ -7,13 +7,15 @@ const Search = () => {
 
     const [text, setText] = useState("");
 
-    const onChange = (e) => setText(e.target.value);
+    const onChange = (e) => {
+        setText(e.target.value);
+        channelContext.searchChannels(text);
+    }
     const onSubmit = (e) => {
         e.preventDefault();
         if (text === "") {
             //TODO: Add some validation result.
         } else {
-            console.log(text);
             channelContext.searchChannels(text);
             setText("");
         }
