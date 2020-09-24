@@ -1,11 +1,47 @@
+:root {
+  --primary-color: rgb(110, 54, 240);
+}
+
 *{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+ul{
+  list-style-type: none;
+}
+a{
+  text-decoration: none;
+}
 body {
   background-color: #191919;
+  color: white;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  z-index: 1;
+  width: 100%;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar a {
+  color: #fff;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+}
+
+.navbar a:hover {
+  background-color: var(--primary-color);
+  color: white;
 }
 .container{
   padding-top: 50px;
@@ -33,10 +69,10 @@ body {
   color: white;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color:  rgb(110, 54, 240);
+  background-color:  var(--primary-color);
 }
 .clear-button{
-  background-color:  rgb(110, 54, 240);
+  background-color:  var(--primary-color);
   cursor: pointer;
   border: 0;
   padding: 0 10px 0 10px;
@@ -46,7 +82,7 @@ body {
 
 }
 .search-button:hover {
-  background-color:  rgb(134, 86, 247);
+  background-color:  var(--primary-color);
 }
 .channel_card h2 {
   font-size: 21px;
@@ -74,7 +110,7 @@ body {
 }
 .channel_card:hover{
   color: white;
-  background-color: rgb(110, 54, 240);
+  background-color: var(--primary-color);
   transition: all 0.2s ease;
   cursor: pointer;
 }

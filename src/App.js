@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavBar from "./components/layouts/Navbar";
 import Home from "./components/pages/Home";
 import NotFound from "./components/pages/NotFound";
 import ChannelState from './components/context/channels/ChannelState';
@@ -16,6 +17,7 @@ function App() {
     <ChannelState>
         <Router>
           <div className='App'>
+            <NavBar />
             <div className='container'>
               <Switch>
                 <Route exact path='/' component={Home} />
