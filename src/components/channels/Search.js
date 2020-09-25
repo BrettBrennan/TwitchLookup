@@ -21,31 +21,31 @@ const Search = () => {
         }
     };
     return (
-        <div>
-            <form onSubmit={onSubmit} className='form'>
-                <input
-                    type='text'
-                    name='text'
-                    placeholder='Search Channels...'
-                    value={text}
-                    onChange={onChange}
-                    className="search-box"
-                />
-                <input
-                    type='submit'
-                    value='Search'
-                    className='search-button'
-                />
-                {channelContext.channels.length > 0 && (
-                    <button
-                        className='clear-button'
-                        onClick={channelContext.clearChannels}
-                    >
-                        Clear
-                    </button>
-                )}
-            </form>
-        </div>
+
+        <form onSubmit={onSubmit} className='form'>
+            <input
+                type='text'
+                name='text'
+                placeholder='Search Channels...'
+                value={text}
+                onChange={onChange}
+                className="search-box"
+            />
+            <input
+                type='submit'
+                value='Search'
+                className='search-button'
+            />
+            {channelContext.channels.length > 0 && (
+                <button
+                    className='clear-button'
+                    onClick={channelContext.clearChannels}
+                >
+                    Clear
+                </button>
+            )}
+        </form>
+
     );
 };
 

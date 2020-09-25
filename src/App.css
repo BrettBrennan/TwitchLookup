@@ -50,9 +50,12 @@ body {
   align-items: center;
   justify-content: center;
 }
-
+.form {
+  display: flex;
+  flex-direction: row;
+}
 .search-box {
-  width: 600px;
+  width: 50vw;
   height: 35px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -84,14 +87,20 @@ body {
 .search-button:hover {
   background-color:  var(--primary-color);
 }
+.channel-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+  padding: 25px;
+}
 .channel_card h2 {
-  font-size: 21px;
+  font-size: 1.2rem;
 }
 .channel_card h3 {
-  font-size: 16px;
+  font-size: 0.9rem;
 }
 .channel_card h4 {
-  font-size: 15px;
+  font-size: 0.8rem;
 }
 .channel_card .selected {
   width: 90vw;
@@ -104,13 +113,24 @@ body {
   align-items: center;
   padding: 2px;
   text-align: center;
-  background-color: rgb(226, 226, 226);
+  background-color: rgb(230, 230, 230);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
+  color: #333;
 }
 .channel_card:hover{
   color: white;
   background-color: var(--primary-color);
   transition: all 0.2s ease;
   cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+  .form {
+    flex-direction: column;
+    width: 100%;
+  }
+  .search-box{
+    margin: auto;
+    width: 100%;
+  }
 }
