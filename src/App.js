@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/layouts/Navbar";
 import Home from "./components/pages/Home";
+import About from "./components/pages/About";
 import Channel from "./components/pages/Channel";
 import NotFound from "./components/pages/NotFound";
 import ChannelState from './components/context/channels/ChannelState';
@@ -22,6 +23,7 @@ function App() {
             <div className='container'>
               <Switch>
                 <Route exact path='/' component={Home} />
+                <Route exact path='/About' component={About} />
                 <Route path='/Channel' component={Channel} />
                 <Route component={NotFound} />
               </Switch>
