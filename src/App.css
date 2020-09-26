@@ -21,6 +21,7 @@ body {
   color: white;
 }
 .navbar {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,10 +40,12 @@ body {
   color: #fff;
   padding: 0.45rem;
   margin: 0 0.25rem;
+  font-size: 1.2rem;
+  
 }
 
 .navbar a:hover {
-  background-color: var(--primary-color);
+  border-bottom: 4px solid #222;
   color: white;
 }
 .container{
@@ -257,7 +260,6 @@ body {
     grid-template-columns: repeat(1, minmax(200px, 1fr)); 
   }
   .navbar{
-    background-color: #dc00feb0;
     position: fixed;
     z-index: 1;
     display: block;
