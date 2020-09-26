@@ -1,23 +1,21 @@
 import React from 'react'
-
-const Channel = (channel, selected) => {
+import { Link } from 'react-router-dom';
+const Channel = (channel) => {
     const {
-        broadcaster_language, 
-        display_name, 
-        game_id, 
+        // broadcaster_language, 
+        // game_id, 
+        // is_live, 
+        // title,
         id, 
-        is_live, 
-        thumbnail_url, 
-        title
+        display_name, 
+        thumbnail_url
     } = channel.channel;
-    var cardClass = `channel_card ${selected === id && 'selected'}`
+    const pathname = `/Channel/${id}`;
     return (
-        <div className={cardClass}>
+        <Link to={pathname} className="channel-card">
+            <img src={thumbnail_url} alt={display_name} className="channel-card-img"/>        
             <h2>{display_name}</h2>
-            <h3>{title}</h3>
-            <img src={thumbnail_url} width='150px' height='150px'/>        
-            <h4>{game_id}</h4>
-        </div>
+        </Link>
     )
 }
 

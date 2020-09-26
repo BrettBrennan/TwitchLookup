@@ -1,7 +1,17 @@
 import React, { useState, useContext } from "react";
 
 import ChannelContext from "../context/channels/channelContext";
-
+/*
+    ! Removed clear button for more stream-lined user experience. Add back only if necessary!
+    {channelContext.channels.length > 0 && (
+        <button
+            className='clear-button'
+            onClick={channelContext.clearChannels}
+        >
+            Clear Search
+        </button>
+    )}
+*/
 const Search = () => {
     const channelContext = useContext(ChannelContext);
 
@@ -36,14 +46,6 @@ const Search = () => {
                 value='Search'
                 className='search-button'
             />
-            {channelContext.channels.length > 0 && (
-                <button
-                    className='clear-button'
-                    onClick={channelContext.clearChannels}
-                >
-                    Clear
-                </button>
-            )}
         </form>
 
     );
