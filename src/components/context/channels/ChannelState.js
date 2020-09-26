@@ -29,6 +29,24 @@ const ChannelState = (props) => {
 
     const setLoading = () => dispatch({ type: SET_LOADING});
 
+    // Get Popular Channels
+    const getPopularChannels = async () => {
+        console.log('Getting Top Channels');
+        setLoading();
+        const inst = axios.create({
+            baseURL: 'https://api.twitch.tv/helix/',
+            headers: {
+                'Authorization': `Bearer ${clientSecret}`,
+                'client-id': clientID
+            }
+        })
+        const res = await inst.get(`streams?first=100`);
+        dispatch({
+            type: SEARCH_CHANNELS,
+            payload: res.data.data,
+        });
+    }
+
     // Search Channels
     const searchChannels = async (text) => {
         console.log('Searching Channels: ' + text);
@@ -73,6 +91,7 @@ const ChannelState = (props) => {
                 loading: state.loading,
                 searchChannels,
                 clearChannels,
+                getPopularChannels,
                 getChannel
             }}
         >

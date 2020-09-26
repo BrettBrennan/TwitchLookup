@@ -53,8 +53,11 @@ body {
 }
 .search-container{
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+.search-container > h3 {
+  margin-top: 10px;
 }
 .form {
   display: flex;
@@ -95,6 +98,20 @@ body {
   background-color: transparent;
   color: white;
   font-size: 1.2rem;
+}
+.live-button-switch{
+  color: white;
+  background: transparent;
+  cursor: pointer;
+  border: 0;
+  font-size: 1.2rem;
+  padding: 5px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.lbs-active{
+  background-color: var(--primary-color);
+
 }
 .search-button {
   cursor: pointer;
@@ -173,6 +190,8 @@ body {
 .channel-profile > h1 {  font-size: 3.5rem;   }
 .channel-profile > h2 {  font-size: 2.3rem;   }
 .channel-profile > h3 {  font-size: 1.7rem;   }
+
+
 @media only screen and (max-width: 1250px){  .channel-list{ grid-template-columns: repeat(5, minmax(200px, 1fr)); } }
 @media only screen and (max-width: 1050px){  .channel-list{ grid-template-columns: repeat(4, minmax(200px, 1fr)); } }
 @media only screen and (max-width: 850px){  .channel-list{ grid-template-columns: repeat(3, minmax(200px, 1fr)); } }
