@@ -7,6 +7,7 @@ import {
     CLEAR_CHANNELS,
     SET_LOADING,
     GET_CHANNEL,
+    GET_GAME
 } from "../types";
 let clientID;
 let clientSecret;
@@ -22,6 +23,7 @@ const ChannelState = (props) => {
     const initialState = {
         channels: [],
         channel: {},
+        game: {},
         loading: false
     }
 
@@ -46,7 +48,22 @@ const ChannelState = (props) => {
             payload: res.data.data,
         });
     }
-
+    const getGame = async (id) => {
+        setLoading();
+        const res = await axios.get(
+            `https://api.twitch.tv/helix/games?id=${id}`, 
+            {
+                headers: {
+                    'authorization': `Bearer ${clientSecret}`,
+                    'client-id': clientID
+                }
+            }
+        );
+        dispatch({
+            type: GET_GAME,
+            payload: res.data,
+        });
+    }
     // Search Channels
     const searchChannels = async (text) => {
         console.log('Searching Channels: ' + text);
@@ -89,10 +106,12 @@ const ChannelState = (props) => {
                 channels: state.channels,
                 channel: state.channel,
                 loading: state.loading,
+                game: state.game,
                 searchChannels,
                 clearChannels,
                 getPopularChannels,
-                getChannel
+                getChannel,
+                getGame
             }}
         >
             {props.children}

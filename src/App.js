@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/layouts/Navbar";
+import Footer from "./components/layouts/Footer";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import Channel from "./components/pages/Channel";
@@ -28,6 +29,7 @@ function App() {
                 <Route component={NotFound} />
               </Switch>
             </div>
+            <Footer />
           </div>
         </Router>
     </ChannelState>

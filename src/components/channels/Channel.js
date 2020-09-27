@@ -16,9 +16,8 @@ const Channel = (channel) => {
 
     const getLiveCount = () => {
         if (!viewer_count) return;
-        return <h3>Live for {viewer_count} viewers</h3>
+        return <h3><span style={{fontWeight: 'bold', color: 'red'}}>Live</span> with {viewer_count} viewers</h3>
     }
-
     return (
         <Link to={pathname} className="channel-card">
             <img src={parsedImagePath} alt={display_name || user_name} className="channel-card-img"/>        

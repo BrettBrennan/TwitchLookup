@@ -19,6 +19,11 @@ a{
 body {
   background-color: #191919;
   color: white;
+  scroll-behavior: smooth;
+}
+.App {
+  position: relative;
+  min-height: 100vh;
 }
 .navbar {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
@@ -79,44 +84,6 @@ body {
 .search-button:hover {
   background-color: var(--primary-highlight-color);
 }
-.search-style-tray{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-.search-style-tray > li {
-  margin: 0 10px 0 10px; 
-}
-.search-style-selector{
-  position: absolute;
-  z-index: -1;
-  background-color: var(--primary-color);
-  transition: all 0.3s ease;
-  border-radius: 5px;
-}
-.search-style-button{
-  cursor: pointer;
-
-  border: 0;
-  background-color: transparent;
-  color: white;
-  font-size: 1.2rem;
-}
-.live-button-switch{
-  color: white;
-  background: transparent;
-  cursor: pointer;
-  border: 0;
-  font-size: 1.2rem;
-  padding: 5px;
-  border-radius: 5px;
-  transition: all 0.2s ease;
-}
-.lbs-active{
-  background-color: var(--primary-color);
-
-}
 .search-button {
   cursor: pointer;
   border: 0;
@@ -145,6 +112,27 @@ body {
 }
 .search-button:hover {
   background-color:  var(--primary-color);
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.home-container > button {
+  margin-top: 50px;
+  cursor: pointer;
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  color: white;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+.home-container > button:hover {
+  background-color: var(--primary-color);
+
 }
 .channel-list{
   display: grid;
@@ -223,6 +211,13 @@ body {
 .about-page > ul > li > a {
   color: var(--secondary-color);
 }
+.footer{
+  position: absolute;
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  bottom: -10px;
+}
 @media only screen and (max-width: 1250px){  .channel-list{ grid-template-columns: repeat(5, minmax(200px, 1fr)); } }
 @media only screen and (max-width: 1050px){  .channel-list{ grid-template-columns: repeat(4, minmax(200px, 1fr)); } }
 @media only screen and (max-width: 850px){  .channel-list{ grid-template-columns: repeat(3, minmax(200px, 1fr)); } }
@@ -234,7 +229,7 @@ body {
   .search-box{
     margin: auto;
     border-radius: 0px;
-    width: 100%;
+    width: 100vw;
   }
   .search-button{
     border-radius: 0px;
@@ -260,8 +255,6 @@ body {
     grid-template-columns: repeat(1, minmax(200px, 1fr)); 
   }
   .navbar{
-    position: fixed;
-    z-index: 1;
     display: block;
     padding: 0;
   }

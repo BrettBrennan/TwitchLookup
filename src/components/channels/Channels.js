@@ -12,14 +12,18 @@ const Users = () => {
         } 
         // eslint-disable-next-line
     }, []);
+    
     if (loading) {
         return <h1>Loading...</h1>;
     } else {
         return (
-            <div className="channel-list">
-                {channels.map((channel) => (
-                    <Channel key={channel.id} channel={channel} />
-                ))}
+            <div className="home-container">
+                <div className="channel-list">
+                    {channels.map((channel) => (
+                        <Channel key={channel.id} channel={channel}/>
+                    ))}
+                </div>
+                <button onClick={() => window.scroll(0, 0)}>Back to Top</button>
             </div>
         );
     }

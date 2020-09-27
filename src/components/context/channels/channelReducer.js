@@ -3,6 +3,7 @@ import {
     CLEAR_CHANNELS,
     SET_LOADING,
     GET_CHANNEL,
+    GET_GAME
 } from "../types";
 
 
@@ -19,6 +20,12 @@ export default (state, action) => {
                 ...state,
                 loading: true,
             };
+        case GET_GAME:
+            return {
+                ...state,
+                game: action.payload,
+                loading: false
+            }
         case CLEAR_CHANNELS:
             return {
                 ...state,
