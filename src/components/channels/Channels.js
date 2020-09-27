@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ChannelContext from "../context/channels/channelContext";
 import Channel from './Channel';
+import Spinner from '../layouts/Spinner';
 const Users = () => {
     const channelContext = useContext(ChannelContext);
     const { channels, getPopularChannels, loading } = channelContext;
@@ -14,7 +15,7 @@ const Users = () => {
     }, []);
     
     if (loading) {
-        return <h1>Loading...</h1>;
+        return <Spinner />;
     } else {
         return (
             <div className="home-container">

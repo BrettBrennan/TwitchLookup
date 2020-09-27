@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import ChannelContext from "../context/channels/channelContext";
+import Spinner from '../layouts/Spinner';
 
 const Channel = () => {
     const channelContext = useContext(ChannelContext);
@@ -11,7 +12,7 @@ const Channel = () => {
         getChannel(userID);
         // eslint-disable-next-line
     }, []);
-    if (loading) return <h1>Loading... </h1>
+    if (loading) return <Spinner />
     if (!channel.data) return <h1>Waiting for channel data...</h1>;
     const { 
         broadcaster_name, 
