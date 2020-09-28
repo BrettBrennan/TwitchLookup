@@ -3,7 +3,8 @@ import {
     CLEAR_CHANNELS,
     SET_LOADING,
     GET_CHANNEL,
-    GET_GAME
+    GET_GAME,
+    GET_USER
 } from "../types";
 
 
@@ -24,6 +25,12 @@ export default (state, action) => {
             return {
                 ...state,
                 game: action.payload,
+                loading: false
+            }
+        case GET_USER:
+            return {
+                ...state,
+                user: action.payload,
                 loading: false
             }
         case CLEAR_CHANNELS:

@@ -7,7 +7,8 @@ import {
     CLEAR_CHANNELS,
     SET_LOADING,
     GET_CHANNEL,
-    GET_GAME
+    GET_GAME,
+    GET_USER
 } from "../types";
 let clientID;
 let clientSecret;
@@ -18,12 +19,12 @@ if (process.env.NODE_ENV !== "production") {
     clientID = process.env.CLIENT_ID;
     clientSecret = process.env.CLIENT_TOKEN;
 }
-console.log(clientID);
 const ChannelState = (props) => {
     const initialState = {
         channels: [],
         channel: {},
         game: {},
+        user: {},
         loading: false
     }
 
@@ -42,11 +43,27 @@ const ChannelState = (props) => {
                 'client-id': clientID
             }
         })
-        const res = await inst.get(`streams?first=100`);
+        const res = await inst.get(`streams?first=30`);
         dispatch({
             type: SEARCH_CHANNELS,
             payload: res.data.data,
         });
+    }
+    const getUser = async (id) => {
+        setLoading();
+        const res = await axios.get(
+            `https://api.twitch.tv/helix/users?id=${id}`, 
+            {
+                headers: {
+                    'authorization': `Bearer ${clientSecret}`,
+                    'client-id': clientID
+                }
+            }
+        );
+        dispatch({
+            type: GET_USER,
+            payload: res.data,
+        });     
     }
     const getGame = async (id) => {
         setLoading();
@@ -84,8 +101,8 @@ const ChannelState = (props) => {
     // Get Channel
     const getChannel = async (broadcaster_id) => {
         setLoading();
-        const res = await axios.get(
-            `https://api.twitch.tv/helix/channels?broadcaster_id=${broadcaster_id}`, 
+        var res = await axios.get(
+            `https://api.twitch.tv/helix/streams?user_id=${broadcaster_id}&first=1`, 
             {
                 headers: {
                     'authorization': `Bearer ${clientSecret}`,
@@ -93,6 +110,20 @@ const ChannelState = (props) => {
                 }
             }
         );
+        if (res.data.data.length > 0)
+            getGame(res.data.data[0].game_id);
+        else{
+            res = await axios.get(
+                `https://api.twitch.tv/helix/channels?broadcaster_id=${broadcaster_id}`, 
+                {
+                    headers: {
+                        'authorization': `Bearer ${clientSecret}`,
+                        'client-id': clientID
+                    }
+                });
+            getUser(broadcaster_id);
+        }
+        
         dispatch({
             type: GET_CHANNEL,
             payload: res.data,
@@ -107,11 +138,13 @@ const ChannelState = (props) => {
                 channel: state.channel,
                 loading: state.loading,
                 game: state.game,
+                user: state.user,
                 searchChannels,
                 clearChannels,
                 getPopularChannels,
                 getChannel,
-                getGame
+                getGame,
+                getUser
             }}
         >
             {props.children}
