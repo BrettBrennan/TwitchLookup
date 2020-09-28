@@ -3,24 +3,29 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
     const [isOpen, setOpen] = useState(false);
+    const [navPos, setNavPos] = useState(-400);
     useEffect(() => {
         window.addEventListener('resize', () => {
             setScreenWidth(window.innerWidth);
         });
     }, []);
-
     const getStyle = () => {
-        return `mobile-menu ${isOpen ? 'opened' : ''}`;
+        return { 
+            top: `${navPos}px`
+        };
     }
-
+    const toggleTray = () => {
+        setOpen(!isOpen);
+        setNavPos(isOpen ? 50 : -400);
+    }
     const getMobileMenu = () => {
         return (
             <nav className='navbar'>
                 <div className="menu-tray">
-                    <h1>Twitch Lookup</h1>
-                    <a href='#' onClick={() => setOpen(!isOpen)}><i className="fa fa-bars" /></a>
+                    <Link to='/'><h1>Twitch Lookup</h1></Link>
+                    <a href='#' onClick={() => toggleTray()}><i className="fa fa-bars" /></a>
                 </div>
-                <div className={getStyle()}>
+                <div style={getStyle()} className="mobile-menu">
                 <ul className='navbar-links'>
                     <li>
                         <Link to='/' onClick={() => setOpen(false)}>Home</Link>
@@ -35,7 +40,7 @@ const NavBar = () => {
     const getDesktopMenu = () => {
         return (
             <nav className='navbar'>
-                <h1>Twitch Lookup</h1>
+                <Link to='/'><h1>Twitch Lookup</h1></Link>
                 <ul className='navbar-links'>
                     <li>
                         <Link to='/'>Home</Link>

@@ -25,17 +25,17 @@ const Channel = () => {
         title
     } = channel.data.length >= 1 ? channel.data[0] : channel.data;
 
-    const image_width = 1920 / 2;
-    const image_height = 1080 / 2;
+    const image_width = 1920;
+    const image_height = 1080;
 
     let parsedImagePath = thumbnail_url ? thumbnail_url.replace('{width}', `${image_width}`).replace('{height}', `${image_height}`) : '';
 
     const getThumbnail = () => {
         if (thumbnail_url) {
-            return <img src={parsedImagePath} alt={user_name}/>
+            return <div style={{backgroundImage: `url(${parsedImagePath})`}} className="channel-profile-image"></div>
         }
         if (user.data){
-            return <img src={user.data[0].profile_image_url} />
+            return <div style={{backgroundImage: `url(${user.data[0].profile_image_url})`}} className="channel-profile-image"></div>
         }
     }
     const getLiveInfo = () => {
