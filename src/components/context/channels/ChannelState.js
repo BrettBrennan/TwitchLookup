@@ -13,13 +13,13 @@ import {
 } from "../types";
 let clientID;
 let clientSecret;
-if (process.env.NODE_ENV !== "production") {
+//if (process.env.NODE_ENV !== "production") {
     clientID = process.env.REACT_APP_CLIENT_ID;
     clientSecret = process.env.REACT_APP_CLIENT_TOKEN;
-} else {
-    clientID = process.env.CLIENT_ID;
-    clientSecret = process.env.CLIENT_TOKEN;
-}
+// } else {
+//     clientID = process.env.CLIENT_ID;
+//     clientSecret = process.env.CLIENT_TOKEN;
+// }
 const ChannelState = (props) => {
     const initialState = {
         channels: [],
