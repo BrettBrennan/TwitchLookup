@@ -504,6 +504,14 @@ body {
         -ms-flex-align: center;
             align-items: center;
   }
+  .menu-tray button {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0 0.5rem;
+  }
   .mobile-menu {
     position: absolute;
     display: block;

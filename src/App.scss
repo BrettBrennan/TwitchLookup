@@ -341,6 +341,15 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
+      button{
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+        color: white;
+        font-size: 1.5rem;
+        padding: 0 0.5rem;
+      }
     }
     .mobile-menu{
       position: absolute;

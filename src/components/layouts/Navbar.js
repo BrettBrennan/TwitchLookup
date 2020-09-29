@@ -23,7 +23,7 @@ const NavBar = () => {
             <nav className='navbar'>
                 <div className="menu-tray">
                     <Link to='/'><h1>Twitch Lookup</h1></Link>
-                    <a href='#' onClick={() => toggleTray()}><i className="fa fa-bars" /></a>
+                    <button onClick={() => toggleTray()}><i className="fa fa-bars" /></button>
                 </div>
                 <div style={getStyle()} className="mobile-menu">
                 <ul className='navbar-links'>
