@@ -2,10 +2,11 @@ import React, { Fragment, useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import ChannelContext from "../context/channels/channelContext";
 import Spinner from '../layouts/Spinner';
+import Error from '../layouts/Error';
 
 const Channel = () => {
     const channelContext = useContext(ChannelContext);
-    const {loading, channel, getChannel, game, user} = channelContext;
+    const {loading, error, channel, getChannel, game, user} = channelContext;
     const location = useLocation();
     const userID = location.pathname.replace('/Channel/', '');
     useEffect(() => {
@@ -13,6 +14,7 @@ const Channel = () => {
         // eslint-disable-next-line
     }, []);
     if (loading) return <Spinner />
+    if (error) return <Error error={error} />
     if (!channel.data) return <h1>Waiting for channel data...</h1>;
     console.log(channel.data[0]);
     const { 

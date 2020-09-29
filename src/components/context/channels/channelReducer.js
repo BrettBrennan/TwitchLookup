@@ -4,7 +4,8 @@ import {
     SET_LOADING,
     GET_CHANNEL,
     GET_GAME,
-    GET_USER
+    GET_USER,
+    ERROR
 } from "../types";
 
 
@@ -14,6 +15,7 @@ export default (state, action) => {
             return {
                 ...state,
                 channels: action.payload,
+                error: null,
                 loading: false,
             };
         case SET_LOADING:
@@ -25,26 +27,36 @@ export default (state, action) => {
             return {
                 ...state,
                 game: action.payload,
+                error: null,
                 loading: false
             }
         case GET_USER:
             return {
                 ...state,
                 user: action.payload,
+                error: null,
                 loading: false
             }
         case CLEAR_CHANNELS:
             return {
                 ...state,
                 channels: [],
+                error: null,
                 loading: false,
             };
         case GET_CHANNEL:
             return {
                 ...state,
                 channel: action.payload,
+                error: null,
                 loading: false,
             };
+        case ERROR:
+            return {
+                ...state,
+                error: action.payload,
+                loading: false
+            }
         default:
             return state;
     }

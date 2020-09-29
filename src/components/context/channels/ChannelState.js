@@ -8,7 +8,8 @@ import {
     SET_LOADING,
     GET_CHANNEL,
     GET_GAME,
-    GET_USER
+    GET_USER,
+    ERROR
 } from "../types";
 let clientID;
 let clientSecret;
@@ -25,6 +26,7 @@ const ChannelState = (props) => {
         channel: {},
         game: {},
         user: {},
+        error: null,
         loading: false
     }
 
@@ -34,100 +36,137 @@ const ChannelState = (props) => {
 
     // Get Popular Channels
     const getPopularChannels = async () => {
-        console.log('Getting Top Channels');
         setLoading();
-        const inst = axios.create({
-            baseURL: 'https://api.twitch.tv/helix/',
-            headers: {
-                'Authorization': `Bearer ${clientSecret}`,
-                'client-id': clientID
-            }
-        })
-        const res = await inst.get(`streams?first=30`);
-        dispatch({
-            type: SEARCH_CHANNELS,
-            payload: res.data.data,
-        });
+        try {
+            const inst = axios.create({
+                baseURL: 'https://api.twitch.tv/helix/',
+                headers: {
+                    'Authorization': `Bearer ${clientSecret}`,
+                    'client-id': clientID
+                }
+            })
+            const res = await inst.get(`streams?first=30`);
+            dispatch({
+                type: SEARCH_CHANNELS,
+                payload: res.data.data,
+            });
+        }
+        catch (error) {
+            dispatch({
+                type: ERROR,
+                payload: error.response.data
+            })
+        }
     }
     const getUser = async (id) => {
         setLoading();
-        const res = await axios.get(
-            `https://api.twitch.tv/helix/users?id=${id}`, 
-            {
-                headers: {
-                    'authorization': `Bearer ${clientSecret}`,
-                    'client-id': clientID
-                }
-            }
-        );
-        dispatch({
-            type: GET_USER,
-            payload: res.data,
-        });     
-    }
-    const getGame = async (id) => {
-        setLoading();
-        const res = await axios.get(
-            `https://api.twitch.tv/helix/games?id=${id}`, 
-            {
-                headers: {
-                    'authorization': `Bearer ${clientSecret}`,
-                    'client-id': clientID
-                }
-            }
-        );
-        dispatch({
-            type: GET_GAME,
-            payload: res.data,
-        });
-    }
-    // Search Channels
-    const searchChannels = async (text) => {
-        console.log('Searching Channels: ' + text);
-        setLoading();
-        const inst = axios.create({
-            baseURL: 'https://api.twitch.tv/helix/',
-            headers: {
-                'Authorization': `Bearer ${clientSecret}`,
-                'client-id': clientID
-            }
-        })
-        const res = await inst.get(`search/channels?query=${text}&first=100`);
-        dispatch({
-            type: SEARCH_CHANNELS,
-            payload: res.data.data,
-        });
-    };
-    // Get Channel
-    const getChannel = async (broadcaster_id) => {
-        setLoading();
-        var res = await axios.get(
-            `https://api.twitch.tv/helix/streams?user_id=${broadcaster_id}&first=1`, 
-            {
-                headers: {
-                    'authorization': `Bearer ${clientSecret}`,
-                    'client-id': clientID
-                }
-            }
-        );
-        if (res.data.data.length > 0)
-            getGame(res.data.data[0].game_id);
-        else{
-            res = await axios.get(
-                `https://api.twitch.tv/helix/channels?broadcaster_id=${broadcaster_id}`, 
+        try {
+            const res = await axios.get(
+                `https://api.twitch.tv/helix/users?id=${id}`, 
                 {
                     headers: {
                         'authorization': `Bearer ${clientSecret}`,
                         'client-id': clientID
                     }
-                });
-            getUser(broadcaster_id);
+                }
+            );
+            dispatch({
+                type: GET_USER,
+                payload: res.data,
+            });     
         }
-        
-        dispatch({
-            type: GET_CHANNEL,
-            payload: res.data,
-        });
+        catch (error) {
+            dispatch({
+                type: ERROR,
+                payload: error.response.data
+            })
+        }
+    }
+    const getGame = async (id) => {
+        setLoading();
+        try {
+            const res = await axios.get(
+                `https://api.twitch.tv/helix/games?id=${id}`, 
+                {
+                    headers: {
+                        'authorization': `Bearer ${clientSecret}`,
+                        'client-id': clientID
+                    }
+                }
+            );
+            dispatch({
+                type: GET_GAME,
+                payload: res.data,
+            });
+        }
+        catch (error) {
+            dispatch({
+                type: ERROR,
+                payload: error.response.data
+            })
+        }
+    }
+    // Search Channels
+    const searchChannels = async (text) => {
+        setLoading();
+        try {
+            const inst = axios.create({
+                baseURL: 'https://api.twitch.tv/helix/',
+                headers: {
+                    'Authorization': `Bearer ${clientSecret}`,
+                    'client-id': clientID
+                }
+            })
+            const res = await inst.get(`search/channels?query=${text}&first=100`);
+            dispatch({
+                type: SEARCH_CHANNELS,
+                payload: res.data.data,
+            });
+        }
+        catch (error) {
+            dispatch({
+                type: ERROR,
+                payload: error.response.data
+            })
+        }
+    };
+    // Get Channel
+    const getChannel = async (broadcaster_id) => {
+        setLoading();
+        try {
+            var res = await axios.get(
+                `https://api.twitch.tv/helix/streams?user_id=${broadcaster_id}&first=1`, 
+                {
+                    headers: {
+                        'authorization': `Bearer ${clientSecret}`,
+                        'client-id': clientID
+                    }
+                }
+            );
+            if (res.data.data.length > 0)
+                getGame(res.data.data[0].game_id);
+            else{
+                res = await axios.get(
+                    `https://api.twitch.tv/helix/channels?broadcaster_id=${broadcaster_id}`, 
+                    {
+                        headers: {
+                            'authorization': `Bearer ${clientSecret}`,
+                            'client-id': clientID
+                        }
+                    });
+                getUser(broadcaster_id);
+            }
+            dispatch({
+                type: GET_CHANNEL,
+                payload: res.data,
+            });
+        }
+        catch (error) {
+            dispatch({
+                type: ERROR,
+                payload: error.response.data
+            })
+        }
     };
     
     const clearChannels = () => dispatch({ type: CLEAR_CHANNELS });
@@ -139,6 +178,7 @@ const ChannelState = (props) => {
                 loading: state.loading,
                 game: state.game,
                 user: state.user,
+                error: state.error,
                 searchChannels,
                 clearChannels,
                 getPopularChannels,
